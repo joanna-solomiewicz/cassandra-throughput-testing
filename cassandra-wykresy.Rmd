@@ -68,7 +68,11 @@ ggplotly(plot_point_jit)
 
 #Results in line plots
 ```{r result line, fig.height=10, fig.width=10, echo = FALSE}
-plot_line <- ggplot(data, aes(x = nodes, y = throughput, color = consistency_level)) +
+data_means <- data %>%
+  group_by(workload, nodes, consistency_level) %>%
+  summarise(throughput = mean(throughput))
+
+plot_line <- ggplot(data_means, aes(x = nodes, y = throughput, color = consistency_level)) +
   geom_line() +
   geom_point() +
   facet_wrap(~workload) +
