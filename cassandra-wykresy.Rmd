@@ -31,7 +31,10 @@ knitr::kable(summary(data))
 
 #Results in boxplot
 ```{r result boxplot, fig.height=10, fig.width=10, echo = FALSE}
-plot_box <-ggplot(data, aes(x = consistency_level, y = throughput, fill = consistency_level, color = consistency_level)) +
+plot_box <- ggplot(data, aes(x = factor(consistency_level, levels = c("ANY", "ONE", "TWO", "THREE", "QUORUM", "ALL")),
+                            y = throughput, 
+                            fill = factor(consistency_level, levels = c("ANY", "ONE", "TWO", "THREE", "QUORUM", "ALL")), 
+                            color = factor(consistency_level, levels = c("ANY", "ONE", "TWO", "THREE", "QUORUM", "ALL")))) +
   geom_boxplot() +
   facet_grid(workload~nodes) +
   theme(axis.text.x = element_text(angle = 45)) +
@@ -44,7 +47,10 @@ ggplotly(plot_box)
 
 #Results in points plot
 ```{r result points, fig.height=10, fig.width=10, echo = FALSE}
-plot_point <-ggplot(data, aes(x = consistency_level, y = throughput, fill = consistency_level, color = consistency_level)) +
+plot_point <- ggplot(data, aes(x = factor(consistency_level, levels = c("ANY", "ONE", "TWO", "THREE", "QUORUM", "ALL")),
+                            y = throughput, 
+                            fill = factor(consistency_level, levels = c("ANY", "ONE", "TWO", "THREE", "QUORUM", "ALL")), 
+                            color = factor(consistency_level, levels = c("ANY", "ONE", "TWO", "THREE", "QUORUM", "ALL")))) +
   geom_point() +
   facet_grid(workload~nodes) +
   theme(axis.text.x = element_text(angle = 45)) +
@@ -57,7 +63,10 @@ ggplotly(plot_point)
 
 #Results in points plot with jitter
 ```{r result points jitter, fig.height=10, fig.width=10, echo = FALSE}
-plot_point_jit <-ggplot(data, aes(x = consistency_level, y = throughput, fill = consistency_level, color = consistency_level)) +
+plot_point_jit <- ggplot(data, aes(x = factor(consistency_level, levels = c("ANY", "ONE", "TWO", "THREE", "QUORUM", "ALL")),
+                            y = throughput, 
+                            fill = factor(consistency_level, levels = c("ANY", "ONE", "TWO", "THREE", "QUORUM", "ALL")), 
+                            color = factor(consistency_level, levels = c("ANY", "ONE", "TWO", "THREE", "QUORUM", "ALL")))) +
   geom_point(position = "jitter") +
   facet_grid(workload~nodes) +
   theme(axis.text.x = element_text(angle = 45)) +
@@ -74,7 +83,9 @@ data_means <- data %>%
   group_by(workload, nodes, consistency_level) %>%
   summarise(throughput = mean(throughput))
 
-plot_line <- ggplot(data_means, aes(x = nodes, y = throughput, color = consistency_level, order = c("..."))) +
+plot_line <- ggplot(data_means, aes(x = nodes, 
+                                    y = throughput, 
+                                    color = factor(consistency_level, levels = c("ANY", "ONE", "TWO", "THREE", "QUORUM", "ALL")))) +
   geom_line() +
   geom_point() +
   facet_wrap(~workload) +
