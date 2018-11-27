@@ -1,5 +1,5 @@
 ---
-title: "Badanie wydajnoœci bazy danych Apache Cassandra dla ró¿nych poziomów spójnoœci"
+title: "Testing Apache Cassandra database throughput for different consistency levels"
 output: 
   html_document: 
     theme: spacelab
@@ -40,7 +40,7 @@ plot_point <-ggplot(data, aes(x = consistency_level, y = throughput, fill = cons
   facet_grid(nodes~workload) +
   theme(axis.text.x = element_text(angle = 45)) +
   xlab(label = "Consistency level") +
-  ylab(label = "Throughput") +
+  ylab(label = "Throughput (ops/sec)") +
   labs(color = "Consistency level", fill = "Consistency level")
 
 ggplotly(plot_point)
@@ -53,7 +53,7 @@ plot_point_jit <-ggplot(data, aes(x = consistency_level, y = throughput, fill = 
   facet_grid(nodes~workload) +
   theme(axis.text.x = element_text(angle = 45)) +
   xlab(label = "Consistency level") +
-  ylab(label = "Throughput") +
+  ylab(label = "Throughput (ops/sec)") +
   labs(color = "Consistency level", fill = "Consistency level")
 
 ggplotly(plot_point_jit)
