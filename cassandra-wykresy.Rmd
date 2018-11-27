@@ -20,6 +20,13 @@ data <- data[data$throughput != 0, ]
 knitr::kable(summary(data))
 ```
 
+#Workloads description
+#####A: 50% read / 50% write
+#####B: 95% read / 5% write
+#####C: 100% read
+#####D: read latest workload
+#####F: read-modify-write
+
 #Results in boxplot
 ```{r result boxplot, fig.height=10, fig.width=10, echo = FALSE}
 plot_box <-ggplot(data, aes(x = consistency_level, y = throughput, fill = consistency_level, color = consistency_level)) +
