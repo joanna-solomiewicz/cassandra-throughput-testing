@@ -31,7 +31,7 @@ knitr::kable(summary(data))
 ```{r result boxplot, fig.height=10, fig.width=10, echo = FALSE}
 plot_box <-ggplot(data, aes(x = consistency_level, y = throughput, fill = consistency_level, color = consistency_level)) +
   geom_boxplot() +
-  facet_grid(nodes~workload) +
+  facet_grid(workload~nodes) +
   theme(axis.text.x = element_text(angle = 45)) +
   xlab(label = "Consistency level") +
   ylab(label = "Throughput") +
@@ -44,7 +44,7 @@ ggplotly(plot_box)
 ```{r result points, fig.height=10, fig.width=10, echo = FALSE}
 plot_point <-ggplot(data, aes(x = consistency_level, y = throughput, fill = consistency_level, color = consistency_level)) +
   geom_point() +
-  facet_grid(nodes~workload) +
+  facet_grid(workload~nodes) +
   theme(axis.text.x = element_text(angle = 45)) +
   xlab(label = "Consistency level") +
   ylab(label = "Throughput (ops/sec)") +
@@ -57,7 +57,7 @@ ggplotly(plot_point)
 ```{r result points jitter, fig.height=10, fig.width=10, echo = FALSE}
 plot_point_jit <-ggplot(data, aes(x = consistency_level, y = throughput, fill = consistency_level, color = consistency_level)) +
   geom_point(position = "jitter") +
-  facet_grid(nodes~workload) +
+  facet_grid(workload~nodes) +
   theme(axis.text.x = element_text(angle = 45)) +
   xlab(label = "Consistency level") +
   ylab(label = "Throughput (ops/sec)") +
