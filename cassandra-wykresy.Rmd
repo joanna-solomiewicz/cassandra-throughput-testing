@@ -66,3 +66,15 @@ plot_point_jit <-ggplot(data, aes(x = consistency_level, y = throughput, fill = 
 ggplotly(plot_point_jit)
 ```
 
+#Results in line plots
+```{r result line, fig.height=10, fig.width=10, echo = FALSE}
+plot_line <- ggplot(data, aes(x = nodes, y = throughput, color = consistency_level)) +
+  geom_line() +
+  geom_point() +
+  facet_wrap(~workload) +
+  xlab(label = "Nodes") +
+  ylab(label = "Throughput (ops/sec)") +
+  labs(color = "Consistency level")
+
+ggplotly(plot_line)
+```
