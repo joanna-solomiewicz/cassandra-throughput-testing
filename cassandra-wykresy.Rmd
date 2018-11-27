@@ -3,6 +3,8 @@ title: "Testing Apache Cassandra database throughput for different consistency l
 output: 
   html_document: 
     theme: spacelab
+    toc: yes
+    toc_float: true
 ---
 ```{r pobieranie bibliotek, message = FALSE, echo = FALSE}
 library(ggplot2)
@@ -72,7 +74,7 @@ data_means <- data %>%
   group_by(workload, nodes, consistency_level) %>%
   summarise(throughput = mean(throughput))
 
-plot_line <- ggplot(data_means, aes(x = nodes, y = throughput, color = consistency_level)) +
+plot_line <- ggplot(data_means, aes(x = nodes, y = throughput, color = consistency_level, order = c("..."))) +
   geom_line() +
   geom_point() +
   facet_wrap(~workload) +
