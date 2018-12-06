@@ -1,0 +1,12 @@
+workload,nodes,replicas,consistency_level,throughput
+A,4,4,ALL,4500
+A,4,4,ONE,6000
+A,4,2,ALL,4800
+A,4,2,ONE,6400
+A,4,1,ONE,6800
+A,4,1,ALL,6600
+A,1,1,ONE,7800
+A,2,2,ONE,6200
+A,2,2,ALL,4400
+A,2,1,ONE,7200
+A,2,1,ALL,7100

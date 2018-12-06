@@ -15,6 +15,7 @@ library(tidyr)
 ```{r ³adowanie danych, echo = FALSE, cache = TRUE}
 data <- read.csv2(file = "./result.csv")
 data <- data[data$throughput != 0, ]
+data_aws <- read.csv(file = "./result_aws.csv")
 ```
 
 #Data summary
@@ -94,4 +95,50 @@ plot_line <- ggplot(data_means, aes(x = nodes,
   labs(color = "Consistency level")
 
 ggplotly(plot_line)
+```
+
+#AWS results in points plot
+```{r aws result points, fig.height=10, fig.width=10, echo = FALSE}
+plot_point_aws <- ggplot(data_aws, aes(x = factor(consistency_level, levels = c("ANY", "ONE", "TWO", "THREE", "QUORUM", "ALL")),
+                            y = throughput,
+                            fill = factor(consistency_level, levels = c("ANY", "ONE", "TWO", "THREE", "QUORUM", "ALL")),
+                            color = factor(consistency_level, levels = c("ANY", "ONE", "TWO", "THREE", "QUORUM", "ALL")))) +
+  geom_point() +
+  facet_grid(replicas~nodes, labeller = label_both) +
+  theme(axis.text.x = element_text(angle = 45)) +
+  xlab(label = "Consistency level") +
+  ylab(label = "Throughput (ops/sec)") +
+  labs(color = "Consistency level", fill = "Consistency level")
+
+ggplotly(plot_point_aws)
+```
+
+#AWS results in line plot
+```{r aws result line, fig.height=10, fig.width=10, echo = FALSE}
+plot_line_aws <- ggplot(data_aws, aes(x = nodes, 
+                                    y = throughput, 
+                                    color = factor(consistency_level, levels = c("ANY", "ONE", "TWO", "THREE", "QUORUM", "ALL")))) +
+  geom_line() +
+  geom_point() +
+  facet_wrap(~replicas, labeller = label_both) +
+  xlab(label = "Nodes") +
+  ylab(label = "Throughput (ops/sec)") +
+  labs(color = "Consistency level")
+
+ggplotly(plot_line_aws)
+```
+
+#AWS results in line plot
+```{r aws result line 2, fig.height=10, fig.width=10, echo = FALSE}
+plot_line_aws_2 <- ggplot(data_aws, aes(x = replicas, 
+                                    y = throughput, 
+                                    color = factor(consistency_level, levels = c("ANY", "ONE", "TWO", "THREE", "QUORUM", "ALL")))) +
+  geom_line() +
+  geom_point() +
+  facet_wrap(~nodes, labeller = label_both) +
+  xlab(label = "Replicas") +
+  ylab(label = "Throughput (ops/sec)") +
+  labs(color = "Consistency level")
+
+ggplotly(plot_line_aws_2)
 ```
