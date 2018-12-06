@@ -16,6 +16,7 @@ library(tidyr)
 data <- read.csv2(file = "./result.csv")
 data <- data[data$throughput != 0, ]
 data_aws <- read.csv(file = "./result_aws.csv")
+data_aws_ssd <- read.csv(file = "./result_aws_ssd.csv")
 ```
 
 #Data summary
@@ -141,4 +142,34 @@ plot_line_aws_2 <- ggplot(data_aws, aes(x = replicas,
   labs(color = "Consistency level", title = "Workload A")
 
 ggplotly(plot_line_aws_2)
+```
+
+#AWS SSD results in line plot
+```{r aws ssd result line, fig.height=5, fig.width=10, echo = FALSE}
+plot_line_aws_ssd <- ggplot(data_aws_ssd, aes(x = nodes, 
+                                    y = throughput, 
+                                    color = factor(consistency_level, levels = c("ANY", "ONE", "TWO", "THREE", "QUORUM", "ALL")))) +
+  geom_line() +
+  geom_point() +
+  facet_wrap(~replicas, labeller = label_both) +
+  xlab(label = "Nodes") +
+  ylab(label = "Throughput (ops/sec)") +
+  labs(color = "Consistency level", title = "Workload A")
+
+ggplotly(plot_line_aws_ssd)
+```
+
+#AWS SSD results in line plot
+```{r aws ssd result line 2, fig.height=5, fig.width=10, echo = FALSE}
+plot_line_aws_ssd_2 <- ggplot(data_aws_ssd, aes(x = replicas, 
+                                    y = throughput, 
+                                    color = factor(consistency_level, levels = c("ANY", "ONE", "TWO", "THREE", "QUORUM", "ALL")))) +
+  geom_line() +
+  geom_point() +
+  facet_wrap(~nodes, labeller = label_both) +
+  xlab(label = "Replicas") +
+  ylab(label = "Throughput (ops/sec)") +
+  labs(color = "Consistency level", title = "Workload A")
+
+ggplotly(plot_line_aws_ssd_2)
 ```
