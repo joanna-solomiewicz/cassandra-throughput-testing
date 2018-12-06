@@ -98,22 +98,6 @@ plot_line <- ggplot(data_means, aes(x = nodes,
 ggplotly(plot_line)
 ```
 
-#AWS results in points plot
-```{r aws result points, fig.height=7, fig.width=7, echo = FALSE}
-plot_point_aws <- ggplot(data_aws, aes(x = factor(consistency_level, levels = c("ANY", "ONE", "TWO", "THREE", "QUORUM", "ALL")),
-                            y = throughput,
-                            fill = factor(consistency_level, levels = c("ANY", "ONE", "TWO", "THREE", "QUORUM", "ALL")),
-                            color = factor(consistency_level, levels = c("ANY", "ONE", "TWO", "THREE", "QUORUM", "ALL")))) +
-  geom_point() +
-  facet_grid(replicas~nodes, labeller = label_both) +
-  theme(axis.text.x = element_text(angle = 45)) +
-  xlab(label = "Consistency level") +
-  ylab(label = "Throughput (ops/sec)") +
-  labs(color = "Consistency level", fill = "Consistency level")
-
-ggplotly(plot_point_aws)
-```
-
 #AWS results in line plot
 ```{r aws result line, fig.height=5, fig.width=10, echo = FALSE}
 plot_line_aws <- ggplot(data_aws, aes(x = nodes, 
