@@ -17,6 +17,22 @@ data <- read.csv2(file = "./result.csv")
 data <- data[data$throughput != 0, ]
 data_aws <- read.csv(file = "./result_aws.csv")
 data_aws_ssd <- read.csv(file = "./result_aws_ssd.csv")
+ops <- read.csv(file = "./ops.csv")
+```
+
+#Throughput for 4 nodes each workload and each consistency level
+```{r, fig.width=10, echo = FALSE}
+plot_box <- ggplot(ops, aes(x = factor(consistency_lvl),
+                            y = ops)) +
+  geom_point() +
+  facet_grid(~workload) +
+  theme(axis.text.x = element_text(angle = 45)) +
+  xlab("Poziom spójnoœci") +
+  ylab("Przepustowoœæ")
+
+plot <- ggplot(ops, aes(x = consistency_lvl, y = ops, group=workload, color=workload)) + geom_line()
+ggplotly(plot)
+ggplotly(plot_box)
 ```
 
 #Data summary
